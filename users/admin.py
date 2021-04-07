@@ -12,7 +12,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     add_fieldsets = (
         (None, {
-            'fields': ('username','email','password1','password2'),
+            'fields': ('email','username','password1','password2'),
         }),
     )
     form = CustomUserChangeForm
