@@ -52,6 +52,7 @@ class Role(models.Model):
 class Review(models.Model):
 
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='reviews', verbose_name='User')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     viewer_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='Viewer Rating')
     title = models.CharField(max_length=60)
     comment = models.TextField(max_length=300)
