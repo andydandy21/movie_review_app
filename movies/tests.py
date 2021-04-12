@@ -3,10 +3,10 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from .models import (
-    Crew,
+    People,
     Genre,
     Movie,
-    Role,
+    CastAndCrew,
     Review,
 )
 
@@ -20,7 +20,7 @@ class MovieTests(TestCase):
             email='reviewuser@email.com',
             password='testpass123',
         )
-        self.crew = Crew.objects.create(
+        self.people = People.objects.create(
             name='Will Smith',
             birth_date=date(1968, 9, 25),
             birth_place='Philadelphia, Pennsylvania, U.S.',
@@ -39,10 +39,9 @@ class MovieTests(TestCase):
             plot='After a government agency makes first contact with aliens in 1961, alien refugees live in secret on Earth by disguising themselves as humans.',
         )
         self.movie.genre.add(self.genre)
-        self.movie.crew.add(self.crew)
-        self.role = Role.objects.create(
-            name='Officer James Darrel Edwards III, MiB Agent J (Jay)',
-            crew=self.crew,
+        self.castandcrew = CastAndCrew.objects.create(
+            role='Officer James Darrel Edwards III, MiB Agent J (Jay)',
+            person=self.people,
             movie=self.movie,
         )
         self.review = Review.objects.create(
@@ -54,12 +53,12 @@ class MovieTests(TestCase):
             date_posted=datetime(2021,4,9),
         )
 
-    def test_create_crew(self):
+    def test_create_people(self):
 
-        self.assertEqual(self.crew.name, 'Will Smith')
-        self.assertEqual(self.crew.birth_date, date(1968, 9, 25))
-        self.assertEqual(self.crew.birth_place, 'Philadelphia, Pennsylvania, U.S.')
-        self.assertEqual(self.crew.biography, 'Smith was born on September 25, 1968 in Philadelphia, Pennsylvania to Caroline.')
+        self.assertEqual(self.people.name, 'Will Smith')
+        self.assertEqual(self.people.birth_date, date(1968, 9, 25))
+        self.assertEqual(self.people.birth_place, 'Philadelphia, Pennsylvania, U.S.')
+        self.assertEqual(self.people.biography, 'Smith was born on September 25, 1968 in Philadelphia, Pennsylvania to Caroline.')
 
     def test_create_genre(self):
 
@@ -75,13 +74,12 @@ class MovieTests(TestCase):
         self.assertEqual(self.movie.movie_length, 98)
         self.assertEqual(self.movie.plot, 'After a government agency makes first contact with aliens in 1961, alien refugees live in secret on Earth by disguising themselves as humans.')
         self.assertEqual(self.movie.genre.first(), self.genre)
-        self.assertEqual(self.movie.crew.first(), self.crew)
 
-    def test_create_role(self):
+    def test_create_castandcrew(self):
 
-        self.assertEqual(self.role.name, 'Officer James Darrel Edwards III, MiB Agent J (Jay)')
-        self.assertEqual(self.role.crew,  self.crew)
-        self.assertEqual(self.role.movie, self.movie)
+        self.assertEqual(self.castandcrew.role, 'Officer James Darrel Edwards III, MiB Agent J (Jay)')
+        self.assertEqual(self.castandcrew.person,  self.people)
+        self.assertEqual(self.castandcrew.movie, self.movie)
 
     def test_create_review(self):
 
