@@ -5,13 +5,17 @@ from django.db import models
 from django.utils import timezone
 
 
-class Crew(models.Model):
+class People(models.Model):
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, verbose_name='Name')
     birth_date = models.DateField(blank=True, null=True, verbose_name='Birthday')
     birth_place = models.CharField(max_length=200, blank=True, verbose_name='Birthplace')
     biography = models.TextField(max_length=5000, blank=True, verbose_name='Bio')
+
+    class Meta:
+
+        verbose_name_plural = 'People'
 
     def __str__(self):
 
@@ -37,17 +41,21 @@ class Movie(models.Model):
     movie_rated = models.CharField(max_length=5, blank=True, verbose_name='Rated')
     movie_length = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(51420)], blank=True, null=True, verbose_name='Running Time')
     plot = models.TextField(max_length=5000, blank=True, verbose_name='Plot')
-    crew = models.ManyToManyField(Crew, blank=True, related_name='movies', verbose_name='Cast and Crew')
 
     def __str__(self):
 
         return self.title
 
-class Role(models.Model):
+class CastAndCrew(models.Model):
     
-    name = models.CharField(max_length=200, verbose_name='Role')
-    crew = models.ForeignKey(Crew, on_delete=models.CASCADE, related_name='roles')
+    role = models.CharField(max_length=200, verbose_name='Role')
+    name = models.ForeignKey(People, on_delete=models.CASCADE, related_name='roles')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='roles')
+
+    class Meta:
+
+        verbose_name = 'Cast and Crew'
+        verbose_name_plural = 'Cast and Crew'
 
     def __str__(self):
 
