@@ -59,7 +59,7 @@ class CastAndCrew(models.Model):
 
     def __str__(self):
 
-        return self.name
+        return self.role
 
 class Review(models.Model):
 
