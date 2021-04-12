@@ -49,7 +49,7 @@ class Movie(models.Model):
 class CastAndCrew(models.Model):
     
     role = models.CharField(max_length=200, verbose_name='Role')
-    name = models.ForeignKey(People, on_delete=models.CASCADE, related_name='roles')
+    person = models.ForeignKey(People, on_delete=models.CASCADE, related_name='roles')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='roles')
 
     class Meta:
