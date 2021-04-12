@@ -33,11 +33,11 @@ class Movie(models.Model):
     production_company = models.CharField(max_length=200, blank=True, verbose_name='Production Company')
     distribution_company = models.CharField(max_length=200, blank=True, verbose_name='Distributed By')
     date_released = models.DateField(default=None, blank=True, null=True, verbose_name='Release Date')
-    genre = models.ManyToManyField(Genre, blank=True, null=True, related_name='movies', verbose_name='Genre')
+    genre = models.ManyToManyField(Genre, blank=True, related_name='movies', verbose_name='Genre')
     movie_rated = models.CharField(max_length=5, blank=True, verbose_name='Rated')
     movie_length = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(51420)], blank=True, null=True, verbose_name='Running Time')
     plot = models.TextField(max_length=5000, blank=True, verbose_name='Plot')
-    crew = models.ManyToManyField(Crew, blank=True, null=True, related_name='movies', verbose_name='Cast and Crew')
+    crew = models.ManyToManyField(Crew, blank=True, related_name='movies', verbose_name='Cast and Crew')
 
     def __str__(self):
 
