@@ -35,6 +35,7 @@ class MovieAdmin(admin.ModelAdmin):
     
     fields = (
         'title',
+        'cover',
         'production_company',
         'distribution_company',
         'date_released',

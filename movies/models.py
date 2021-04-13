@@ -12,6 +12,7 @@ class People(models.Model):
     birth_date = models.DateField(blank=True, null=True, verbose_name='Birthday')
     birth_place = models.CharField(max_length=200, blank=True, verbose_name='Birthplace')
     biography = models.TextField(max_length=5000, blank=True, verbose_name='Bio')
+    picture = models.ImageField(upload_to='people_pictures/', default='default.png')
 
     class Meta:
 
@@ -41,6 +42,7 @@ class Movie(models.Model):
     movie_rated = models.CharField(max_length=5, blank=True, verbose_name='Rated')
     movie_length = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(51420)], blank=True, null=True, verbose_name='Running Time')
     plot = models.TextField(max_length=5000, blank=True, verbose_name='Plot')
+    cover = models.ImageField(upload_to='movie_covers/', default='default.png')
 
     def __str__(self):
 
