@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse Movies{% endblock title %}
+
+{% block content %}
+<h1>Browse</h1>
+<br>
+{% for movie in movie_list %}
+<img src="{{ movie.cover.url }}">
+<h3><a href="#">{{movie.title}}</a></h3>
+{% endfor %}
+{% endblock content %}
