@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 class People(models.Model):
@@ -21,6 +22,10 @@ class People(models.Model):
     def __str__(self):
 
         return self.name
+    
+    def get_absolute_url(self):
+
+        return reverse('people_detail', args=[str(self.id)])
 
 class Genre(models.Model):
     
@@ -47,6 +52,10 @@ class Movie(models.Model):
     def __str__(self):
 
         return self.title
+
+    def get_absolute_url(self):
+
+        return reverse('movie_detail', args=[str(self.id)])
 
 class CastAndCrew(models.Model):
     

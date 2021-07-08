@@ -1,0 +1,45 @@
+/*
+    Styling for the stars-rating
+*/
+.viewer-review-rating input {
+    display: none;
+}
+.viewer-review-rating label {
+    color: black;
+    font-size: 20px;
+}
+.viewer-review-rating-hover {
+    color: yellow !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+}
+.viewer-review-rating-no-hover {
+    color: black !important;
+    text-shadow: none !important;
+}
+
+/*
+    Container divs for average reviews
+*/
+.parent-holder {
+    position: relative;
+    width: 80px;
+}
+.child-holder {
+    display: flex;
+    position: absolute;
+    left: 0;
+}
+.child-holder-filled {
+    position: relative;
+    display: flex;
+    left: 0;
+    overflow: hidden;
+    padding-right: 1px;
+}
+
+/*
+    Used with 'load more' button
+*/
+.hide-element {
+    display: none;
+}

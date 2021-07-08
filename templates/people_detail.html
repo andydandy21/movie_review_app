@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ people.name }}{% endblock title %}
+
+{% block content %}
+<h1>People Detail</h1>
+
+<h3>{{ people.name }}</h3>
+<img src="{{ people.picture.url }}">
+<h6>{{ people.birth_date }}</h6>
+<h6>{{ people.birth_place }}</h6>
+<p>{{ people.biography }}</p>
+<h4>Roles</h4>
+{% for role in people.roles.all %}
+    <p>{{ role }}</p>
+{% endfor %}
+
+{% endblock content %}

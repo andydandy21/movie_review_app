@@ -6,7 +6,12 @@
 <h1>Browse</h1>
 <br>
 {% for movie in movie_list %}
-<img src="{{ movie.cover.url }}">
-<h3><a href="#">{{movie.title}}</a></h3>
+<div class="movies-wrapper">
+    <div class="movie-cover-wrapper">
+        <img src="{{ movie.cover.url }}">
+    </div>
+    {# there needs to be a star-rating here #}
+    <h4><a href="{{ movie.get_absolute_url }}">{{movie.title}}</a></h4>
+</div>
 {% endfor %}
 {% endblock content %}
