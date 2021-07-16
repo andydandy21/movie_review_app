@@ -3,11 +3,15 @@
 {% block title %}Log Out{% endblock title %}
 
 {% block content %}
-<h2>Log Out</h2>
-<p>Are you sure you'd like to log out?</p>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log Out</button>
-</form>
+<div style="width: 300px; margin:1em auto;">
+    <h2>Log Out</h2>
+    <p>Are you sure you'd like to log out?</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div style="text-align: right;">
+            <button class="btn btn-danger" type="submit">Log Out</button>
+        </div>
+    </form>
+</div>   
 {% endblock content %}

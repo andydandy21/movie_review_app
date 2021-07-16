@@ -3,10 +3,16 @@
 {% block title %}Log In{% endblock title %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-</form>
+<div style="width: 810px; margin:2em auto;">
+    <h2>Log In</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p><input class="form-control" type="text" name="login" placeholder="Username or e-mail" autocomplete="email" required="" id="id_login">
+        <p><input class="form-control" type="password" name="password" placeholder="Password" autocomplete="current-password" required="" id="id_password">
+        <p><label for="id_remember">Remember Me:</label> <input type="checkbox" name="remember" id="id_remember"></p>
+        <div style="text-align: right;">
+            <button class="btn btn-success" type="submit">Log In</button>
+        </div>
+    </form>
+</div>
 {% endblock content %}

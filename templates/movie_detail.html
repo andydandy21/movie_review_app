@@ -2,20 +2,18 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/movie_detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/movie_detail.css' %}">
 {% endblock styles %}
 
 {% block title %}{{ movie.title }}{% endblock title %}
 
 {% block content %}
-<h1>Movie Detail</h1>
-<h3>{{ movie.title }}</h3>
-<div id="movie-info">
-    <img src='{{ movie.cover.url }}'>
-    <h4>Movie Info</h4>
-    <div id="average-reviews">
-        <strong>Average Review: </strong>
-        <div class="parent-holder">
+<div class="movie-detail-container">
+    <h1 class="movie-title">{{ movie.title }}</h1>
+    <img class="movie-cover-img" src='{{ movie.cover.url }}'>
+    <div class="movie-info-container">
+        <strong class="info-title info1">Average Review: </strong>
+        <div class="parent-holder info-stat stat1">
             <div class="child-holder">
                 <span class="bi bi-star-fill"></span>
                 <span class="bi bi-star-fill"></span>
@@ -31,135 +29,152 @@
                 <span class="bi bi-star-fill viewer-review-rating-hover"></span>
             </div>
         </div>
-    </div>
-    <br>
-    <p>
-        <strong>Rating: </strong>
-        {{ movie.movie_rated }}
-    </p>
-    <p>
-        <strong>Genre: </strong>
-        {% for genre in movie.genre.all %} 
-            {% if forloop.last %}
-                {{ genre }}
-            {% else %} 
-                {{ genre }},
-            {% endif %}
-        {% endfor %}
-    </p>
-    <p>
-        <strong>Production Company: </strong> 
-        {{ movie.production_company }}
-    </p>
-    <p>
-        <strong>Distribution Company: </strong> 
-        {{ movie.distribution_company }}
-    </p>
-    <p>
-        <strong>Release Date:</strong>
-        {{ movie.date_released }}
-    </p>
-    <p>
-        <strong>Runtime:</strong>
-        {{ movie.movie_length }} minutes
-    </p>
-</div>
-<div>
-    <h4>Plot</h4>
-    <p>
-        {{ movie.plot }}
-    </p>
-</div>
-<div>
-    <h4>Cast and Crew</h4>
-    {% for crew in movie.crew.all %}
-        <img src="{{ crew.person.picture.url }}">
-        <a href="{{ crew.person.get_absolute_url }}">{{ crew.person.name }}</a>
-        <p class="text-muted">{{ crew.role }}</p>
-    {% endfor %}
-</div>
-<br>
-<div>
-    <h4>Write a Review</h4>
-    <form method="post" id="review-form">
-        {% csrf_token %}
-        <p id="review-form-title">{{ review_form.title.label }}: {{ review_form.title }}</p>
-        <p class="viewer-review-rating">
-            {% for radio in review_form.viewer_rating %}
-                <label  id="form-stars-label" for="{{ radio.id_for_label }}" class="bi bi-star-fill" data-counter="{{ forloop.counter }}">
-                    <span class="radio">
-                        <input type="radio" name="viewer_rating" value="{{ forloop.counter }}" id="id_viewer_rating_{{ forloop.counter0 }}">
-                    </span>
-                </label>
+        <strong class="info-title info2">Rating: </strong>
+        <div class="stat2">{{ movie.movie_rated }}</div>
+        <strong class="info-title info3">Genre: </strong>
+        <div class="stat3">
+            {% for genre in movie.genre.all %} 
+                {% if forloop.last %}
+                    {{ genre }}
+                {% else %} 
+                    {{ genre }},
+                {% endif %}
             {% endfor %}
-        </p>
-        <p id="review-form-comment">{{ review_form.comment.label }}: {{ review_form.comment }}</p>
-        
-        <button id="review-form-submit" type="submit">Submit</button>
-    </form>
-</div>
-<br>
-<div id = "review-section">
-    <h4>Reviews</h4>
-    {% for review in reviews %}
-        <div id="review-post" class="hide-element">
-            <h5>{{ review.title }}</h5>
-            {% with ''|center:5 as range %}
-                {% for x in range %}
-                    {% if forloop.counter <= review.viewer_rating %}
-                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
-                    {% else %}
-                        <span class="bi bi-star-fill"></span>
-                    {% endif %}
-                {% endfor %}
-            {% endwith %}
-            <p>{{ review.comment }}</p>
-            <p>- {{ review.author }} at <span id='date-posted'>{{ review.date_posted.isoformat }}</span></p>
-            <br>
         </div>
-    {% endfor %}
-    <button type="button" id="load-more">Load More Reviews</button>
+        <strong class="info-title info4">Production Company: </strong> 
+        <div class="stat4">{{ movie.production_company }}</div>
+        <strong class="info-title info5">Distribution Company: </strong> 
+        <div class="stat5">{{ movie.distribution_company }}</div>
+        <strong class="info-title info6">Release Date:</strong>
+        <div class="stat6">{{ movie.date_released }}</div>
+        <strong class="info-title info7">Runtime:</strong>
+        <div class="stat7">{{ movie.movie_length }} minutes</div>
+    </div>
+    <div class="plot-container">
+        <h4>Plot</h4>
+        <div class="plot-text"><p>
+            {{ movie.plot }}
+        </p></div>
+    </div>
+    <div class="cast-container">
+        <h4>Cast and Crew</h4>
+        <div class="cast-card-container">
+            {% for crew in movie.crew.all %}
+                <div class="cast-card hide-element">
+                    <img class="actor-img" src="{{ crew.person.picture.url }}">
+                    <div class="actor-info">
+                        <a class="actor-name" href="{{ crew.person.get_absolute_url }}">{{ crew.person.name }}</a>
+                        <p class="actor-role text-muted">{{ crew.role }}</p>
+                    </div>   
+                </div>
+            {% endfor %}   
+        </div>
+        <a id="show-more-crew" class="show-crew-link" href="#">(show all)</a>
+    </div>
+    <div class="review-form-container">
+        {% if user.is_authenticated %}
+            <h4>Write a Review</h4>
+            <form class="review-form-style" method="post" id="review-form">
+                {% csrf_token %}
+                <p id="review-form-title" class="viewer-review-title">{{ review_form.title }}</p>
+                <p class="viewer-review-rating">
+                    {% for radio in review_form.viewer_rating %}
+                        <label  id="form-stars-label" for="{{ radio.id_for_label }}" class="bi bi-star-fill" data-counter="{{ forloop.counter }}">
+                            <span class="radio">
+                                <input type="radio" name="viewer_rating" value="{{ forloop.counter }}" id="id_viewer_rating_{{ forloop.counter0 }}">
+                            </span>
+                        </label>
+                    {% endfor %}
+                </p>
+                <p id="review-form-comment" class="viewer-review-comment">{{ review_form.comment }}</p>
+                <div class="review-form-btn">
+                    <button id="review-form-submit" class="btn btn-outline-secondary" type="submit">Submit</button>
+                </div>
+            </form>
+        {% else %}
+            <div class="login-to-review-container">
+                <h4>Reviews</h4>
+                <p class="login-to-review">
+                    &ensp;
+                    <a href="{% url 'account_login' %}?next={{request.path}}">log in</a> 
+                    | 
+                    <a href="{% url 'account_signup' %}?next={{request.path}}">sign up</a> 
+                    to write a review
+                </p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="review-container" id="review-section">
+        {% for review in reviews %}
+            <div id="review-post" class="review-post-container hide-element">
+                <h5  class="review-post-title">{{ review.title }}</h5>
+                <div class="review-post-stars">
+                    {% with ''|center:5 as range %}
+                        {% for x in range %}
+                            {% if forloop.counter <= review.viewer_rating %}
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                            {% else %}
+                                <span class="bi bi-star-fill"></span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+                <p class="review-post-comment">{{ review.comment }}</p>
+                <p class="review-post-author">- {{ review.author }} at <span id='date-posted'>{{ review.date_posted.isoformat }}</span></p>
+            </div>
+        {% endfor %}
+        <div class="d-grid gap-2 col-6 mx-auto my-3">
+            <button type="button" id="load-more-reviews" class="btn btn-primary">Load More Reviews</button>
+        </div>
+    </div>
 </div>
-
 <script> 
-
-document.querySelector("#review-form").addEventListener('submit', postReviewData);
+if (document.querySelector("#review-form")) document.querySelector("#review-form").addEventListener('submit', postReviewData);
 
 let averageReview = '{{ review_avg.viewer_rating__avg }}';
-let wholeReview = Math.floor(averageReview / 1);
-let fractionReview = averageReview % wholeReview;
-let roundedFraction = Math.floor(fractionReview * 10) / 10;
-let roundedAverageReview = wholeReview + roundedFraction;
-
 let reviewStarsWidth = averageReview/5*100;
-
 let averageReviewContainer = document.querySelector(".child-holder-filled");
 averageReviewContainer.style.width = reviewStarsWidth + '%';
 
-let averageReviewNode = document.querySelector('#average-reviews');
-let roundedReviewText = document.createElement('span');
-roundedReviewText.textContent = roundedAverageReview;
-averageReviewNode.appendChild(roundedReviewText);
+const loadMoreReviews = document.querySelector('#load-more-reviews');
+const hidReview = [...document.querySelectorAll('#review-post')];
 
-const loadMore = document.querySelector('#load-more');
-const hid = [...document.querySelectorAll('#review-post')];
-
-hid.splice(0, 9).forEach(
+hidReview.splice(0, 9).forEach(
   elem => elem.classList.remove('hide-element')
 );
 
-loadMore.addEventListener('click', function(e) {
+loadMoreReviews.addEventListener('click', function(e) {
   e.preventDefault();
   
-  hid.splice(0, 6).forEach(
+  hidReview.splice(0, 6).forEach(
     elem => elem.classList.remove('hide-element')
   )
   
-  if (hid.length == 0) {
-    loadMore.classList.add('hide-element');
+  if (hidReview.length == 0) {
+    loadMoreReviews.classList.add('hide-element');
   }
 });
 
+const showAllCrew = document.querySelector('#show-more-crew');
+const hidCrew = [...document.querySelectorAll('.cast-card')];
+hidCrew.splice(0, 6).forEach(
+  elem => elem.classList.remove('hide-element')
+);
+
+showAllCrew.addEventListener('click', function(e) {
+  e.preventDefault();
+  if (showAllCrew.textContent == '(show all)') {
+    hidCrew.forEach(
+        elem => elem.classList.remove('hide-element')
+    );
+    showAllCrew.textContent = '(show less)';
+  } else {
+    hidCrew.forEach(
+        elem => elem.classList.add('hide-element')
+    );
+    showAllCrew.textContent = '(show all)';
+  };
+});
 
 
 
@@ -191,7 +206,7 @@ async function postReviewData(event) {
     newReview = createReviewPost(formTitle, formComment, formReview, formAuthor, formDate);
     reviewSection = document.querySelector('#review-section');
     reviewSectionChildren =  reviewSection.childNodes;
-    reviewSection.insertBefore(newReview, reviewSectionChildren[2]);
+    reviewSection.insertBefore(newReview, reviewSectionChildren[1]);
 
     document.querySelector("#review-form").reset();
     resetSelectRadioStyle('#form-stars-label');
@@ -217,31 +232,38 @@ function resetSelectRadioStyle(queryValue) {
 
 function createReviewPost(title, comment, review, author, date){
     let newDiv = document.createElement('div');
+    newDiv.className = 'review-post-container';
     newDiv.id = 'review-post';
 
     let reviewTitle = document.createElement('h5');
+    reviewTitle.className = 'review-post-title';
     reviewTitle.textContent = title;
     newDiv.appendChild(reviewTitle);
 
+    let reviewStarsContainer = document.createElement('div');
+    reviewStarsContainer.className = 'review-post-stars';
     let reviewStars = document.createElement('span'); 
     reviewStars.className = 'bi bi-star-fill viewer-review-rating-hover';
     reviewStars.textContent = ' ';
     let addedStar;
     for (let count = 0; count < review; count++) {
         addedStar = reviewStars.cloneNode(true);
-        newDiv.appendChild(addedStar);
+        reviewStarsContainer.appendChild(addedStar);
     }
     for (let count = 4; count >= review; count --) {
         addedStar = reviewStars.cloneNode(true);
         addedStar.className = 'bi bi-star-fill';
-        newDiv.appendChild(addedStar);
+        reviewStarsContainer.appendChild(addedStar);
     }
+    newDiv.appendChild(reviewStarsContainer);
 
     let reviewComment = document.createElement('p');
+    reviewComment.className = 'review-post-comment';
     reviewComment.textContent = comment;
     newDiv.appendChild(reviewComment);
 
     let reviewAuthor = document.createElement('p');
+    reviewAuthor.className = 'review-post-author';
     reviewAuthor.textContent = '- ' + author + ' at ';
     newDiv.appendChild(reviewAuthor);
 
@@ -250,8 +272,6 @@ function createReviewPost(title, comment, review, author, date){
     reviewDate.textContent = `${reviewDateObject['day']} ${reviewDateObject['month']} ${reviewDateObject['year']}, ` + 
                         `${reviewDateObject['hour']}:${reviewDateObject['minutes']} ${reviewDateObject['follower']}`;
     reviewAuthor.appendChild(reviewDate);
-
-    newDiv.appendChild(document.createElement('br'));
 
     return newDiv;
 };
