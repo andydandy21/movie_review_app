@@ -42,11 +42,13 @@
     </nav>
 
 
-
+    {% if user.is_authenticated %}
     <div id="profile-dropdown" class="hide-element">
-        <a class="profile-link" href="#">Profile</a>
+        <a class="profile-link" href="{% url 'user_profile' request.user.uuid %}">Profile</a>
         <a class="logout" href="{% url 'account_logout' %}">Log Out</a>
     </div>
+    {% endif %}
+    
     <div id="search-results-container" class="custom-scrollbar hide-element"></div>
     <div class="logout-background hide-element"></div>
     <div class="logout-menu hide-element">    

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile_detail.css' %}">
+{% endblock styles %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+<h1>Profile View</h1>
+{{ profile }}
+{% endblock content %}
