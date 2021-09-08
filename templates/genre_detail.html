@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/genre_detail.css' %}">
+{% endblock styles %}
+
+{% block title %}{{ genre.genre }}{% endblock title %}
+
+{% block content %}
+<h1 class="page-title">{{ genre.genre }} Movies</h1>
+<br>
+<div class="all-movie-container">
+    {% for movie in genre.movies.all %}
+        <div class="movie-container">           
+            <a class="movie-link" href="{{ movie.get_absolute_url }}">
+                <img class="movie-cover" src="{{ movie.cover.url }}">
+                <div class="parent-holder">
+                    <div class="child-holder">
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                    </div>
+                    <div class="child-holder-filled">
+                        <span class="hide-element">{{ movie.avg_review }}</span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                    </div>
+                </div>
+                <p class="movie-title" href="{{ movie.get_absolute_url }}">{{ movie.title }}</p>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

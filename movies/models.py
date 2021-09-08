@@ -2,6 +2,7 @@ import uuid
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models import Avg, Count, Sum
 from django.utils import timezone
 from django.urls import reverse
 
@@ -32,6 +33,26 @@ class Genre(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     genre = models.CharField(max_length=200, unique=True, verbose_name='Genre')
 
+    @property
+    def avg_reviews_sorted(self):
+        
+        annotated_list = self.movies.annotate(avg_test=Avg('reviews__viewer_rating')).order_by('-avg_test')
+        excluded_none = annotated_list.exclude(avg_test=None)
+        if excluded_none.count() >= 20:
+            return excluded_none
+        else:
+            full_list = []
+            filtered_none = annotated_list.filter(avg_test=None)
+            for i in excluded_none:
+                full_list.append(i)
+            for i in filtered_none:
+                full_list.append(i)
+            return full_list
+
+    def get_absolute_url(self):
+
+        return reverse('genre_detail', args=[str(self.id)])
+
     def __str__(self):
 
         return self.genre
@@ -49,6 +70,11 @@ class Movie(models.Model):
     plot = models.TextField(max_length=5000, blank=True, verbose_name='Plot')
     cover = models.ImageField(upload_to='movie_covers/', default='default.png')
 
+    @property
+    def avg_review(self):
+        
+        return self.reviews.aggregate(Avg('viewer_rating'))['viewer_rating__avg']
+        
     def __str__(self):
 
         return self.title
@@ -56,6 +82,10 @@ class Movie(models.Model):
     def get_absolute_url(self):
 
         return reverse('movie_detail', args=[str(self.id)])
+    
+    class Meta:
+        
+        ordering = ["title"]
 
 class CastAndCrew(models.Model):
     

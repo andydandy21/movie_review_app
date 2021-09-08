@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
+{% endblock styles %}
+
+{% block title %}Contact{% endblock title %}
+
+{% block content %}
+<div class="contact-container">
+    <h1>Contact Us</h1>
+    <p class="header-message">Got feedback? Send an email! All responses are appreciated.</p>
+    <form class="contact-form" method="post">
+        {% csrf_token %}
+        <input type="text" name="first_name" placeholder="First Name" maxlength="50" required="" id="id_first_name">
+        <input type="text" name="last_name" placeholder="Last Name" maxlength="50" required="" id="id_last_name">
+        <input type="email" name="email_address" placeholder="E-mail Address" maxlength="150" required="" id="id_email_address">
+        <input type="text" name="subject" placeholder="Subject" maxlength="150" required="" id="id_subject">
+        <textarea name="message" placeholder="Type your message here..." cols="40" rows="10" maxlength="2000" required="" id="id_message"></textarea>
+        <button type="submit">Send</button>
+        <p id="success-msg" class="hide-element" style="text-align: center;">Success! Your e-mail has been delivered.</p>
+    </form>
+</div>
+
+<script>
+document.querySelector('.contact-form').addEventListener('submit', postContactData);
+
+async function postContactData(event) {
+    event.preventDefault();
+
+    let formFirstName = document.querySelector('#id_first_name').value;
+    let formLastName = document.querySelector('#id_last_name').value;
+    let formEmailAddress = document.querySelector('#id_email_address').value;
+    let formSubject = document.querySelector('#id_subject').value;
+    let formMessage = document.querySelector('#id_message').value;
+
+    let formData = new FormData();
+
+    formData.append('first_name', formFirstName);
+    formData.append('last_name', formLastName);
+    formData.append('email_address', formEmailAddress);
+    formData.append('subject', formSubject);
+    formData.append('message', formMessage);
+    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+    await fetch('{% url "contact" %}', {
+        method: 'post',
+        body: formData,
+    }).catch(error => {
+        console.error(error);
+    });
+
+    document.querySelector('.contact-form').reset();
+    let successMsg = document.querySelector('#success-msg');
+    successMsg.classList.remove('hide-element')
+
+}
+
+</script>
+
+{% endblock content %}

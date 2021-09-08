@@ -8,16 +8,49 @@
 {% block title %}{{ people.name }}{% endblock title %}
 
 {% block content %}
-<h1>People Detail</h1>
 
-<h3>{{ people.name }}</h3>
-<img style="width: 240px; height: 288px;" src="{{ people.picture.url }}">
-<h6>{{ people.birth_date }}</h6>
-<h6>{{ people.birth_place }}</h6>
-<p>{{ people.biography }}</p>
-<h4>Appears in</h4>
-{% for role in people.roles.all %}
-    <a href="{{ role.movie.get_absolute_url }}">{{ role.movie }}</a>
-{% endfor %}
+<div class="people-container">
+    <h3 class="people-name">{{ people.name }}</h3>
+    <img class="people-image" src="{{ people.picture.url }}">
+    <div class="people-info">
+        <p class="birthdate"><strong>Birth Date: </strong>{{ people.birth_date }}</p>
+        <p class="birthplace"><strong>Birth Place: </strong>{{ people.birth_place }}</p>
+        <p class="biography">{{ people.biography }}</p>
+    </div>
+    <div class="related-movies">
+        <h4>Related Movies</h4>
+        <div class="flex-container custom-scrollbar">
+            <div class="all-movies-container">
+                {% for role in people.roles.all %}
+                <div class="movie-container">
+                    <a class="movie-link" href="{{ role.movie.get_absolute_url }}">
+                        <img class="movie-cover-img" src="{{ role.movie.cover.url }}">
+                        <div class="parent-holder">
+                            <div class="child-holder">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                            <div class="child-holder-filled">
+                                <span class="hide-element">{{ role.movie.avg_review }}</span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                            </div>
+                        </div>
+                        <p class="movie-title">{{ role.movie }}</p>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="width-machine" style="width: 100%;"></div>
 
 {% endblock content %}

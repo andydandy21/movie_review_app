@@ -149,7 +149,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'movie_list'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
 
 SITE_ID = 1
@@ -158,9 +158,17 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+DEFAULT_FROM_EMAIL = 'admin@ReelReviews.com'
 
-DEFAULT_FROM_EMAIL = 'admin@moviereviewer.com'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'AKIAUX7RIUWWS24WWHER'
+#EMAIL_HOST_PASSWORD = 'BIZX6s9vlmyRdfP3rNPOyhy1AuHYB493h45c6OZH2iFQ'
+#EMAIL_USE_TLS = True
+#DEFAULT_FROM_EMAIL = 'email.tester4ever@gmail.com'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True

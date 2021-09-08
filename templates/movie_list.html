@@ -1,17 +1,51 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/movie_list.css' %}">
+{% endblock styles %}
 
 {% block title %}Browse Movies{% endblock title %}
 
 {% block content %}
-<h1>Browse</h1>
-<br>
-{% for movie in movie_list %}
-<div class="movies-wrapper">
-    <div class="movie-cover-wrapper">
-        <img src="{{ movie.cover.url }}">
-    </div>
-    {# there needs to be a star-rating here #}
-    <h4><a href="{{ movie.get_absolute_url }}">{{movie.title}}</a></h4>
+<div class="page-title">
+    <h1>Browse Popular Genre</h1>
+    <a class="all-genre-link" href="{% url 'genre_list' %}">(view all)</a>
 </div>
+{% for genre in genre_list %}
+    <div class="movie-list-container">
+        <div class="genre-title"><a href="{{ genre.get_absolute_url }}"><h3>{{ genre }}</h3></a></div>
+        <div class="flex-container custom-scrollbar">
+            <div class="all-movie-container">
+            {% for movie in genre.avg_reviews_sorted %}
+            {% if forloop.counter <= 20 %}
+                <div class="movie-container">           
+                    <a class="movie-link" href="{{ movie.get_absolute_url }}">
+                        <img class="movie-cover" src="{{ movie.cover.url }}">
+                        <div class="parent-holder">
+                            <div class="child-holder">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                            <div class="child-holder-filled">
+                                <span class="hide-element">{{ movie.avg_review }}</span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                            </div>
+                        </div>
+                        <p class="movie-title" href="{{ movie.get_absolute_url }}">{{ movie }}</p>
+                    </a>
+                </div>
+            {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endfor %}
 {% endblock content %}

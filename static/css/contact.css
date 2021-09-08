@@ -1,0 +1,36 @@
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: auto
+}
+
+.contact-form input, .contact-form textarea {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: .375em;
+    margin: .25em;
+}
+
+.contact-form button {
+    width: min-content;
+    border: none;
+    border-radius: 5px;
+    padding: .5em;
+    margin: .25em .25em .25em auto;
+}
+
+.contact-container {
+    max-width: 900px;
+    margin: 1em auto;
+}
+
+.header-message {
+    text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+    .header-message {
+        font-size: 1.25em;
+    }   
+}

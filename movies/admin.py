@@ -55,3 +55,4 @@ class MovieAdmin(admin.ModelAdmin):
 admin.site.register(People, PeopleAdmin)
 admin.site.register(Genre)
 admin.site.register(Movie, MovieAdmin)
+admin.site.register(Review)

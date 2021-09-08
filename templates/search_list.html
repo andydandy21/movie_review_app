@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search_list.css' %}">
+{% endblock styles %}
+
+{% block title %}{{ genre.genre }}{% endblock title %}
+
+{% block content %}
+<div class="search-list-master-container">
+    {% if movie_list or people_list or genre_list %}
+        <div class="search-results-header">
+        <h1>Search Results for: {{ search_string }}</h1>
+
+        </div>
+        <div class="search-results-filter">
+            <p id="show-results"><span class="filter-message">show only results for: </span>
+                <a href="#">movies</a> |
+                <a href="#">people</a> |
+                <a href="#">genre</a> |
+                <a href="#">all</a>
+            </p>
+        </div>
+    {% else %}
+        <h1>No search results for: {{ search_string }}</h1>
+    {% endif %}
+    <div class="search-list-container">
+        {% if movie_list %}
+            <div class="search-all-movies-container">
+                <h1>Movies</h1>
+                {% for movie in movie_list %}
+                    <div class="search-movies-container">
+                        <img class="search-movie-cover" src="{{ movie.cover.url }}">
+                        <h3 class="search-movie-title"><a href="{{ movie.get_absolute_url }}">{{ movie.title }} ({{ movie.date_released|date:"Y" }})</a></h3>
+                        <div class="parent-holder search-movie-rating">
+                            <div class="child-holder">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                            <div class="child-holder-filled">
+                                <span class="hide-element">{{ movie.avg_review }}</span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                                <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                            </div>
+                        </div>
+                        <p class="search-movie-distributed"><strong>Distributed By: </strong>{{ movie.distribution_company }}</p>
+                        <p class="search-movie-people"><strong>Starring: </strong>
+                            {% for crew in movie.crew.all %}
+                                {% if forloop.counter.last %}
+                                    {{ crew.person.name }}
+                                {% else %}
+                                    {{ crew.person.name }}, 
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="search-movie-plot"><strong>Plot: </strong>{{ movie.plot }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        {% if people_list %}
+            <div class="search-all-people-container">
+                <h1>People</h1>
+                {% for people in people_list %}
+                    <div class="search-people-container">
+                        <img class="search-people-picture" src="{{ people.picture.url }}">
+                        <h3 class="search-people-title"><a href="{{ people.get_absolute_url }}">{{ people.name }}</a></h3>
+                        <p class="search-people-birthdate"><strong>Birthdate: </strong>{{ people.birth_date }}</p>
+                        <p class="search-people-birthplace"><strong>Birthplace: </strong>{{ people.birth_place }}</p>
+                        <p class="search-people-biography"><strong>Biography: </strong>{{ people.biography }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        {% if genre_list %}
+            <div class="search-all-genre-container">
+                <h1>Genre</h1>
+                <div class="search-genre-container">   
+                    {% for genre in genre_list %}
+                        {% if forloop.last %}
+                            <a href="{{ genre.get_absolute_url }}" class="search-results-genre">{{ genre.genre }}</a>
+                        {% else %}
+                            <a href="{{ genre.get_absolute_url }}" class="search-results-genre">{{ genre.genre }}, </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<script>
+    let showResults = document.querySelector('#show-results');
+    let searchResultsMovies = document.querySelector('.search-all-movies-container');
+    let searchResultsPeople = document.querySelector('.search-all-people-container');
+    let searchResultsGenre = document.querySelector('.search-all-genre-container');
+    console.log(searchResultsMovies);
+    console.log(searchResultsPeople);
+    console.log(searchResultsGenre);
+    console.log(showResults.children[0])
+    showResults.addEventListener('click', e => {
+        console.log(e.target.textContent)
+        if (e.target.textContent == 'movies') {
+            searchResultsMovies.classList.remove('hide-element')
+            searchResultsPeople.classList.add('hide-element')
+            searchResultsGenre.classList.add('hide-element')
+        } else if (e.target.textContent == 'people') {
+            searchResultsPeople.classList.remove('hide-element')
+            searchResultsMovies.classList.add('hide-element')
+            searchResultsGenre.classList.add('hide-element')
+        } else if (e.target.textContent == 'genre') {
+            searchResultsGenre.classList.remove('hide-element')
+            searchResultsMovies.classList.add('hide-element')
+            searchResultsPeople.classList.add('hide-element')
+        } else if (e.target.textContent == 'all') {
+            searchResultsMovies.classList.remove('hide-element')
+            searchResultsPeople.classList.remove('hide-element')
+            searchResultsGenre.classList.remove('hide-element')
+        } 
+    })
+</script>
+
+{% endblock content %}
