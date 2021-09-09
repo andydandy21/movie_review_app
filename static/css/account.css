@@ -37,3 +37,15 @@
     float: right;
     margin-right: 2em;
 }
+.errorlist-container {
+    width: 100%;
+    padding: 0;
+}
+.errorlist {
+    white-space: nowrap;
+    list-style-type: none;
+    background: rgb(255, 213, 219);
+    width: 100%;
+    border-radius: 5px;  
+    padding: .25em 1em; 
+}
