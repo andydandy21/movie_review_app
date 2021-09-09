@@ -171,5 +171,6 @@ DEFAULT_FROM_EMAIL = 'admin@ReelReviews.com'
 #DEFAULT_FROM_EMAIL = 'email.tester4ever@gmail.com'
 
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
