@@ -21,5 +21,10 @@
         </div>
         <p>Already have an account? <a href="{% url 'account_login' %}">Log in</a></p>
     </form>
+    <ul class="errorlist-container">
+        {% for key, value in form.errors.items %}
+            <li class="errorlist">{% if key != '__all__' %}{{ key }}{% endif %}{{ value }}</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock content %}
