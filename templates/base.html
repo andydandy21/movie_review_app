@@ -44,7 +44,7 @@
 
     {% if user.is_authenticated %}
     <div id="profile-dropdown" class="hide-element">
-        <a class="profile-link" href="{% url 'user_profile' request.user.uuid %}">Profile</a>
+        <a class="profile-link" href="{% url 'user_profile' %}">Profile</a>
         <a class="logout" href="{% url 'account_logout' %}">Log Out</a>
     </div>
     {% endif %}

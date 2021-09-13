@@ -162,14 +162,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 DEFAULT_FROM_EMAIL = 'admin@ReelReviews.com'
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'AKIAUX7RIUWWS24WWHER'
-#EMAIL_HOST_PASSWORD = 'BIZX6s9vlmyRdfP3rNPOyhy1AuHYB493h45c6OZH2iFQ'
-#EMAIL_USE_TLS = True
-#DEFAULT_FROM_EMAIL = 'email.tester4ever@gmail.com'
 
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
