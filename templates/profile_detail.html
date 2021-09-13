@@ -9,6 +9,17 @@
 
 {% block content %}
 <h1>Profile View</h1>
-{{ profile }}
-{{ profile.email }}
+{{ user }}
+{{ user.email }}
+
+<form method="POST" action="{% url 'email_change' %}">
+    {% csrf_token %}
+    <input type="email" name="email" id="id_email" placeholder="E-mail Address">
+    <button type="submit">Change Email</button>
+</form>
+<ul>
+    {% for key, value in form.errors.items %}
+        <li class="errorlist">{{ value }}</li>
+    {% endfor %}
+</ul>
 {% endblock content %}

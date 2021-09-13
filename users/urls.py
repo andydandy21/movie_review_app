@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import ProfileDetailView
+from .views import ProfileDetailView, EmailChangeView
 
 
 urlpatterns = [
-    path('<uuid:pk>/', ProfileDetailView.as_view(), name='user_profile'),
+    path('profile/', ProfileDetailView.as_view(), name='user_profile'),
+    path('email_change/', EmailChangeView.as_view(), name='email_change')
 ]
