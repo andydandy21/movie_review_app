@@ -11,8 +11,10 @@
 <h1>Profile View</h1>
 {{ user }}
 {{ user.email }}
+{{ user.date_joined }}
+{{ user.reviews.count }}
 
-<form method="POST" action="{% url 'email_change' %}">
+<form method="POST" action="{% url 'email_change' %}" id="email-change-form">
     {% csrf_token %}
     <input type="email" name="email" id="id_email" placeholder="E-mail Address">
     <button type="submit">Change Email</button>
@@ -22,4 +24,38 @@
         <li class="errorlist">{{ value }}</li>
     {% endfor %}
 </ul>
+<ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+<form method="POST" action="{% url 'logged_in_password_reset' %}">
+    {% csrf_token %}
+    <input id="id_email" type="hidden" name="email" value="{{ user.email }}" required></p>
+    <button class="my-btn" type="submit">Reset My Password</button>
+</form>
+<!-- make sure email change shows message that verification was sent to their current primary address -->
+<!-- add password change functionality -->
+<!-- just show the movie title and stars of the reviews until clicked, then whole review will pop up on the bottom
+        where the user can edit or delete the review    -->
+
+<script>
+/*
+    document.querySelector("#email-change-form").addEventListener('submit', async e => {
+        e.preventDefault();
+        let formEmail = document.querySelector("#id_email").value;
+        let formData = new FormData();
+        formData.append('email', formEmail);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+        await fetch('{% url "email_change" %}', {
+            method: 'post',
+            body: formData,
+        })
+        .then(response => {
+            console.log(response);
+        });
+    });
+*/
+</script>
+
 {% endblock content %}
