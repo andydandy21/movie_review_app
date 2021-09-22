@@ -4,12 +4,6 @@
     border-radius: 5px;
     padding: .375em;
 }
-.my-btn {
-    border: none;
-    border-radius: 5px;
-    padding: .5em;
-}
-
 .account-form-container {
     max-width: 810px; 
     margin:2em auto;

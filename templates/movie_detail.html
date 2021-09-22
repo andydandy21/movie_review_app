@@ -74,6 +74,7 @@
     </div>
     <div class="review-form-container">
         {% if user.is_authenticated %}
+        <div id="unreviewed-form" class="{% if user_review %}hide-element{% endif %}">
             <h4>Write a Review</h4>
             <form class="review-form-style" method="post" id="review-form">
                 {% csrf_token %}
@@ -92,6 +93,66 @@
                     <button id="review-form-submit" class="btn btn-outline-secondary" type="submit">Submit</button>
                 </div>
             </form>
+        </div>
+        <div id="already-reviewed-form" class="{% if not user_review %}hide-element{% endif %}">
+            <h4>Your Review</h1>
+            <div id="user-review-container" class="review-form-style" style="border: none;">
+                <h5 id="user-review-title" class="review-post-title">{{ user_review.title }}</h5>
+                <div class="parent-holder review-post-stars">
+                    <div class="child-holder">
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                        <span class="bi bi-star-fill"></span>
+                    </div>
+                    <div class="child-holder-filled" id="user-review-filled-stars">
+                        <span id="user-review-rating" class="hide-element">{{ user_review.viewer_rating }}</span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                        <span class="bi bi-star-fill viewer-review-rating-hover"></span>
+                    </div>
+                </div>
+                <p id="user-review-comment" class="review-post-comment">{{ user_review.comment }}</p>
+                <p id="user-review-author" class="review-post-author">- {{ user }} at <span id='date-posted' name="date-posted">{{ user_review.date_posted.isoformat }}</span></p>
+                <button id="user-review-edit-btn" class="btn btn-outline-secondary">edit</button>
+                <button id="user-review-delete-btn" class="btn btn-outline-danger" style="float: right;">Delete Review</button>
+            </div>
+            <form id="user-review-form" class="review-form-style hide-element" method="post" action="{% url 'review_update' %}">
+                {% csrf_token %}
+                <input type="hidden" id="movie_id" name="movie_id" value="{{ movie.id }}">
+                <input class="form-control" type="text" id="user-review-form-title" name="title" placeholder="{{ user_review.title }}">
+                <div class="viewer-review-rating">
+                    {% with ''|center:5 as range %}
+                        {% for radio in range %}
+                            <label id="user-review-form-stars-label" for="user_review_viewer_rating_{{ forloop.counter0 }}" class="bi bi-star-fill" data-counter="{{ forloop.counter }}">
+                                <span class="radio">
+                                    <input type="radio" name="user_viewer_rating" value="{{ forloop.counter }}" id="user_review_viewer_rating_{{ forloop.counter0 }}">
+                                </span>
+                            </label>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+                <textarea class="form-control" style="height: 128px;" id="user-review-form-comment" name="comment" placeholder="{{ user_review.comment }}"></textarea>
+                <button id="user-review-cancel-btn" class="btn btn-outline-secondary" type="submit">Cancel</button>
+                <button id="user-review-submit-btn" class="btn btn-outline-secondary" type="submit" style="float: right;">Submit</button>
+            </form>
+            <br>
+            <div id="delete-review-background" class="delete-review-background hide-element"></div>
+            <div id="delete-review-form"  class="delete-review-menu hide-element">
+                <h2>Delete Review</h2>
+                <p>Are you sure you'd like to <strong>delete</strong> your <strong>review</strong></p>
+                <form method="POST" action="{% url 'review_delete' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="movie_id" value="{{ movie.id }}">
+                    <button class="btn btn-outline-secondary" id="delete-review-cancel-btn">Cancel</button>
+                    <button class="btn btn-danger" style="float: right;" type="submit">Delete</button>
+                </form>
+            </div>
+            <h4>All Reviews</h4>
+        </div>
         {% else %}
             <div class="login-to-review-container">
                 <h4>Reviews</h4>
@@ -206,6 +267,18 @@ async function postReviewData(event) {
     reviewSectionChildren =  reviewSection.childNodes;
     reviewSection.insertBefore(newReview, reviewSectionChildren[1]);
 
+    userReviewTitle.textContent = formTitle;
+    userReviewFilledStars.style.width = formReview/5*100 + '%';
+    userReviewComment.textContent = formComment;
+    formattedDate = myDateTimeFormatter(formDate.toISOString());
+    userReviewDatePosted.textContent = `${formattedDate['day']} ${formattedDate['month']} ${formattedDate['year']}, `+
+                                       `${formattedDate['hour']}:${formattedDate['minutes']} ${formattedDate['follower']}`;
+    userReviewFormTitle.placeholder = formTitle;
+    userReviewFormComment.placeholder = formComment;
+
+    unreviewedForm.classList.add('hide-element');
+    reviewedForm.classList.remove('hide-element');
+
     document.querySelector("#review-form").reset();
     resetSelectRadioStyle('#form-stars-label');
 };
@@ -273,6 +346,46 @@ function createReviewPost(title, comment, review, author, date){
 
     return newDiv;
 };
+
+let unreviewedForm = document.querySelector('#unreviewed-form');
+let reviewedForm = document.querySelector('#already-reviewed-form');
+let userReviewTitle = document.querySelector('#user-review-title');
+let userReviewComment = document.querySelector('#user-review-comment'); 
+let userReviewDatePosted = document.querySelector('[name=date-posted]');
+let userReviewFormTitle = document.querySelector('#user-review-form-title');
+let userReviewFormComment = document.querySelector('#user-review-form-comment');
+let userReviewFilledStars = document.querySelector('#user-review-filled-stars');
+
+let userReviewEditBtn = document.querySelector('#user-review-edit-btn');
+let userReviewDeleteBtn = document.querySelector('#user-review-delete-btn');
+let userReviewCancelBtn = document.querySelector('#user-review-cancel-btn');
+let cancelDeleteReviewBtn = document.querySelector('#delete-review-cancel-btn');
+let userReviewContainer = document.querySelector('#user-review-container');
+let userReviewForm = document.querySelector('#user-review-form');
+let deleteReviewBackground = document.querySelector('#delete-review-background');
+let deleteReviewForm = document.querySelector('#delete-review-form');
+
+userReviewEditBtn.addEventListener('click', e => {
+    e.preventDefault();
+    userReviewForm.classList.remove('hide-element');
+    userReviewContainer.classList.add('hide-element');
+});
+userReviewCancelBtn.addEventListener('click', e => {
+    e.preventDefault();
+    userReviewContainer.classList.remove('hide-element');
+    userReviewForm.classList.add('hide-element');
+});
+userReviewDeleteBtn.addEventListener('click', e => {
+    e.preventDefault();
+    deleteReviewBackground.classList.remove('hide-element');
+    deleteReviewForm.classList.remove('hide-element');
+});
+cancelDeleteReviewBtn.addEventListener('click', e => {
+    e.preventDefault();
+    deleteReviewBackground.classList.add('hide-element');
+    deleteReviewForm.classList.add('hide-element');
+});
+
 
 </script>
 

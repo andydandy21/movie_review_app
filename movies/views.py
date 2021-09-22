@@ -1,10 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.http.response import HttpResponse
-from django.shortcuts import render
-from django.urls.base import reverse
+from django.shortcuts import redirect
+from django.urls.base import reverse, reverse_lazy
+from django.utils import timezone
 from django.views.generic import ListView, DetailView, FormView, TemplateView
-from django.views.generic.base import View
 from django.views.generic.detail import SingleObjectMixin
 from django.views import View
 
@@ -43,6 +44,8 @@ class MovieDetailView(DetailView):
 
     def get_context_data(self, **kwargs): 
         context = super(MovieDetailView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['user_review'] = self.get_object().reviews.all().filter(author=self.request.user).first()
         context['review_form'] = ReviewForm()
         context['reviews'] = self.get_object().reviews.all().order_by('-date_posted')
         return context
@@ -89,7 +92,7 @@ class PeopleDetailView(DetailView):
     context_object_name = 'people'
     template_name = 'people_detail.html'
 
-def fetch_get(request):
+def fetch_get_search(request):
 
     movies = Movie.objects.annotate(review_count=Count('reviews')).order_by('-review_count')
     people = People.objects.all().order_by('name')
@@ -151,3 +154,42 @@ class SearchView(TemplateView):
                                 Q(movies__title__icontains=search)
                                 ).distinct().order_by('genre')
         return context
+
+def fetch_get_reviews(request):
+
+    reviews = Review.objects.all().filter(author=request.user)
+    data = {
+        'reviews': []
+    }
+    for review in reviews:
+        
+        data['reviews'].append({
+            'id': review.id,
+            'title': review.title,
+            'movie': review.movie.title,
+            'viewer_rating': review.viewer_rating,
+            'comment': review.comment,
+            'date_posted': review.date_posted.strftime('%d %B %Y, %-I:%M %p'),
+        })
+    return JsonResponse(data)
+
+class ReviewUpdateView(LoginRequiredMixin, TemplateView):
+
+    def post(self, request, *args, **kwargs):
+
+        review = Review.objects.filter(author=request.user, movie=request.POST['movie_id']).first()
+        review.title = request.POST['title']
+        review.viewer_rating = request.POST['user_viewer_rating'] if 'user_viewer_rating' in request.POST else 0
+        review.comment = request.POST['comment']
+        review.date_posted = timezone.now()
+        review.save()
+        return redirect('movie_detail', str(review.movie.id))
+
+class ReviewDeleteView(LoginRequiredMixin, TemplateView):
+
+    def post(self, request, *args, **kwargs):
+
+        review = Review.objects.filter(author=request.user, movie=request.POST['movie_id']).first()
+        review.delete()
+
+        return redirect('movie_detail', str(review.movie.id))

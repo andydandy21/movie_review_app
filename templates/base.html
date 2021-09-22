@@ -69,6 +69,8 @@
     <script src="{% static 'js/base.js' %}"></script>
     <script>
 
+
+
         let searchBar = document.querySelector('#searchbar');
         let searchResults = document.querySelector('#search-results-container');
         let moviesResultsList = document.querySelector('#movies-results-list');
@@ -81,7 +83,6 @@
         let peopleList = [];
         let genreList = [];
         let currentSearchString = []
-        
         let fetchRequired = true
 
         document.addEventListener("click", e => {
@@ -114,7 +115,6 @@
         });
 
         searchBar.addEventListener('keyup', (e) => {
-            
             let searchString = e.target.value.toLowerCase();
             let filteredMovies = movieList.filter( movie => {
                 return (movie.title.toLowerCase().includes(searchString) || 
@@ -142,7 +142,7 @@
 
 
         function searchbarFetch() {
-            fetch('{% url "fetch" %}', {
+            fetch('{% url "fetch_search" %}', {
                 headers:{
                     'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',

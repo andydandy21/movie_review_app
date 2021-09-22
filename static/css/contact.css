@@ -14,8 +14,6 @@
 
 .contact-form button {
     width: min-content;
-    border: none;
-    border-radius: 5px;
     padding: .5em;
     margin: .25em .25em .25em auto;
 }

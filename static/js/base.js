@@ -1,36 +1,49 @@
 
 let buttons = document.querySelectorAll('[name=viewer_rating]');
-
+let buttonSetTwo = document.querySelectorAll('[name=user_viewer_rating]');
 for (let button of Array.from(buttons)) {
-    button.addEventListener('change', event => {
-        for (let count = 0; count < event.target.value; count++){
-            buttons[count].parentNode.parentNode.style.color = 'yellow';
-            buttons[count].parentNode.parentNode.style.textShadow = '0 2px 5px rgba(0, 0, 0, .5)';
-        };
-        for (let count = 4; count >= event.target.value; count--){
-            buttons[count].parentNode.parentNode.style.color = '';
-            buttons[count].parentNode.parentNode.style.textShadow = ''; 
-        };
-    });
+    button.addEventListener('change', e=> selectStarFunction(e, buttons));
+};
+for (let button of Array.from(buttonSetTwo)) {
+    button.addEventListener('change', e => selectStarFunction(e, buttonSetTwo));
 };
 
 let labels = document.querySelectorAll('#form-stars-label');
+let labelSetTwo = document.querySelectorAll('#user-review-form-stars-label');
 
 for (let label of Array.from(labels)) {
-    label.addEventListener('mouseenter', event => {
-        let eventTarget = event.target.getAttribute('data-counter')
-        for (let count = 0; count < eventTarget; count++) {
-            labels[count].className = 'bi bi-star-fill viewer-review-rating-hover';
-        };
-        for (let count = 4; count >= eventTarget; count--) {
-            labels[count].className = 'bi bi-star-fill viewer-review-rating-no-hover';
-        }
-    });
-    label.addEventListener('mouseleave', event => {
-        for (let count = 0; count < 5; count++) {
-            labels[count].className = 'bi bi-star-fill';
-        };
-    });
+    label.addEventListener('mouseenter', e => starHoverEnterFunction(e,'data-counter', labels));
+    label.addEventListener('mouseleave', e => starHoverLeaveFunction(e, labels));
+};
+
+for (let label of Array.from(labelSetTwo)) {
+    label.addEventListener('mouseenter', e => starHoverEnterFunction(e,'data-counter', labelSetTwo));
+    label.addEventListener('mouseleave', e => starHoverLeaveFunction(e, labelSetTwo));
+};
+
+function selectStarFunction(event, element) {
+    for (let count = 0; count < event.target.value; count++){
+        element[count].parentNode.parentNode.style.color = 'yellow';
+        element[count].parentNode.parentNode.style.textShadow = '0 2px 5px rgba(0, 0, 0, .5)';
+    };
+    for (let count = 4; count >= event.target.value; count--){
+        element[count].parentNode.parentNode.style.color = '';
+        element[count].parentNode.parentNode.style.textShadow = ''; 
+    };
+};
+function starHoverEnterFunction(event, attribute, element) {
+    let eventTarget = event.target.getAttribute(attribute)
+    for (let count = 0; count < eventTarget; count++) {
+        element[count].className = 'bi bi-star-fill viewer-review-rating-hover';
+    };
+    for (let count = 4; count >= eventTarget; count--) {
+        element[count].className = 'bi bi-star-fill viewer-review-rating-no-hover';
+    }
+}
+function starHoverLeaveFunction(event, element) {
+    for (let count = 0; count < 5; count++) {
+        element[count].className = 'bi bi-star-fill';
+    };
 };
 
 let nodes = document.querySelectorAll('#date-posted');

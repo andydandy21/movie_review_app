@@ -7,7 +7,10 @@ from .views import (
                 MovieHybridView, 
                 PeopleDetailView, 
                 SearchView,
-                fetch_get,
+                fetch_get_search,
+                fetch_get_reviews,
+                ReviewUpdateView,
+                ReviewDeleteView
 )
 
 
@@ -18,5 +21,8 @@ urlpatterns = [
     path('people/<uuid:pk>/', PeopleDetailView.as_view(), name='people_detail'),
     path('genre/<uuid:pk>/', GenreDetailView.as_view(), name='genre_detail'),
     path('search/', SearchView.as_view(), name='search_list'),
-    path('fetch23755/', fetch_get, name='fetch'),
+    path('fetch/search/23755/', fetch_get_search, name='fetch_search'),
+    path('fetch/reviews/25035/', fetch_get_reviews, name='fetch_reviews'),
+    path('review/update/', ReviewUpdateView.as_view(), name='review_update'),
+    path('review/delete/', ReviewDeleteView.as_view(), name='review_delete'),
 ]
