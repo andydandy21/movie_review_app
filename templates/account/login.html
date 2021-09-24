@@ -24,7 +24,7 @@
             </div>
         </div>    
     </form>
-    <p>Forgot your password? <a href="{% url 'account_reset_password' %}">Reset password</a></p>
+    <p>Forgot your password? <a style="color:gray;" href="{% url 'account_reset_password' %}">Reset password</a></p>
     <ul class="errorlist-container">
         {% for key, value in form.errors.items %}
             <li class="errorlist">{% if key != '__all__' %}{{ key }}{% endif %}{{ value }}</li>

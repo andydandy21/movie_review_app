@@ -20,7 +20,7 @@
 
     <nav class="custom-navbar">
         <div class="navbar-container">
-            <a class="navbar-logo navbar-link" href="{% url 'movie_list' %}"><h1>Navbar</h1></a>
+            <a class="navbar-logo navbar-link" href="{% url 'movie_list' %}"><img class="custom-logo" src="/media/site_images/Logo.png"></a>
             <a class="navbar-about navbar-link" href="{% url 'about' %}"><h5>About</h5></a>
             <a class="navbar-contact navbar-link" href="{% url 'contact' %}"><h5>Contact</h5></a>
             <form class="search-form" method="GET" action="{% url 'search_list' %}">
@@ -279,11 +279,13 @@
     let logoutButton = document.querySelector('.logout');
     let logoutBG = document.querySelector('.logout-background');
     let logoutMenu = document.querySelector('.logout-menu');
-    logoutButton.addEventListener('click', e => {
-        e.preventDefault();
-        logoutBG.classList.remove('hide-element');
-        logoutMenu.classList.remove('hide-element');
-    });
+    if (logoutButton) {
+        logoutButton.addEventListener('click', e => {
+            e.preventDefault();
+            logoutBG.classList.remove('hide-element');
+            logoutMenu.classList.remove('hide-element');
+        });
+    };
     let cancelButton = document.querySelector('#cancel-btn');
     cancelButton.addEventListener('click', e => {
         e.preventDefault();

@@ -177,11 +177,9 @@ h4 {
     text-decoration: none;
     color: inherit;
 }
-.actor-name:hover {
-    color: rgb(16, 128, 233);
-}
 
 .show-crew-link {
+    color: gray;
     float: right;
     text-align: right;
     text-decoration: none;

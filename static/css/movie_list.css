@@ -6,6 +6,7 @@
     padding: .5em;
 }
 .all-genre-link {
+    color: gray;
     float: right;
     text-align: right;
     text-decoration: none;
@@ -24,6 +25,7 @@
     white-space: nowrap;
 }
 .genre-title a{
+    color: inherit;
     text-decoration: none;
 }
 .flex-container {
@@ -47,10 +49,6 @@
     margin-bottom: 0;
     font-size: .95em;
 }
-.movie-title:hover {
-    color: rgb(16, 128, 233);
-}
-
 .movie-link:link, .movie-link:visited {
     text-decoration: none;
     color: inherit;

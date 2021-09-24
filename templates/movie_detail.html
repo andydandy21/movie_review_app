@@ -158,9 +158,9 @@
                 <h4>Reviews</h4>
                 <p class="login-to-review">
                     &ensp;
-                    <a href="{% url 'account_login' %}?next={{request.path}}">log in</a> 
+                    <a style="color: gray;" href="{% url 'account_login' %}?next={{request.path}}">log in</a> 
                     | 
-                    <a href="{% url 'account_signup' %}?next={{request.path}}">sign up</a> 
+                    <a style="color: gray;" href="{% url 'account_signup' %}?next={{request.path}}">sign up</a> 
                     to write a review
                 </p>
             </div>
@@ -186,7 +186,7 @@
             </div>
         {% endfor %}
         <div class="d-grid gap-2 col-6 mx-auto my-3">
-            <button type="button" id="load-more-reviews" class="btn btn-primary">Load More Reviews</button>
+            <button type="button" id="load-more-reviews" class="btn btn-secondary">Load More Reviews</button>
         </div>
     </div>
 </div>

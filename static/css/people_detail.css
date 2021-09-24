@@ -56,9 +56,6 @@
     font-size: .95em;
     margin: .25em auto 0 auto;
 }
-.movie-title:hover {
-    color: rgb(16, 128, 233);
-}
 .movie-link:link, .movie-link:visited {
     text-decoration: none;
     color: inherit;

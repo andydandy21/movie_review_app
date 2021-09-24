@@ -22,7 +22,7 @@
         <div style="text-align: right;">
             <button class="btn btn-outline-secondary" type="submit">Sign Up</button>
         </div>
-        <p>Already have an account? <a href="{% url 'account_login' %}">Log in</a></p>
+        <p>Already have an account? <a style="color: gray;" href="{% url 'account_login' %}">Log in</a></p>
     </form>
     <ul class="errorlist-container">
         {% for key, value in form.errors.items %}

@@ -1,16 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock styles %}
+
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<h1>Home Page</h1>
-
-{% if user.is_authenticated %}
-<a href="{% url 'account_logout' %}">Log Out</a>
-{% else %}
-<a href="{% url 'account_login' %}">Log In</a>
-<a href="{% url 'account_signup' %}">Sign Up</a>
-{% endif %}
+<div class="home-img-container">
+    <img class="home-img" src="/media/site_images/Reel_Front_Shot.jpg">
+</div>
+<div class="logo-container">
+    <img class="logo-txt" src="/media/site_images/Logo_Text.png">
+</div>
+<div class="logo-container-reel">
+    <img class="logo-txt-reel" src="/media/site_images/Logo_Text_REEL.png">
+</div>
+<div class="logo-container-review">
+    <img class="logo-txt-review" src="/media/site_images/Logo_Text_REVIEW.png">
+</div>
+<div class="home-menu">
+    <a class="continue-link" href="{% url 'movie_list' %}"><h1>Continue to Site</h1></a>
+    {% if user.is_authenticated %}
+    <div class="login-signup-container">
+        <a class="home-account-link" href="{% url 'account_logout' %}">Log Out</a>
+    </div>
+    {% else %}
+    <div class="login-signup-container">
+        <a class="home-account-link" href="{% url 'account_login' %}">Log In</a>
+        <a class="home-account-link" href="{% url 'account_signup' %}">Sign Up</a>
+    </div>
+    {% endif %}
+</div>
+<div class="home-background"></div>
 {% endblock content %}
 
