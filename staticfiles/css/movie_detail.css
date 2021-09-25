@@ -1,0 +1,272 @@
+
+.movie-detail-container {
+    display: grid;
+    grid-template:
+        "title"
+        "cover"
+        "info"
+        "plot"
+        "cast"
+        "create-review"
+        "read-review"
+    ;
+    max-width: 585px;
+    margin: 0 auto 0 auto;
+    
+}
+h4 {
+    padding-left: .5em;
+}
+.movie-info-container {
+    grid-area: info;
+    display: grid;
+    grid-template:
+        "info1 stat1" min-content
+        "info2 stat2" min-content
+        "info3 stat3" min-content
+        "info4 stat4" min-content
+        "info5 stat5" min-content
+        "info6 stat6" min-content
+        "info7 stat7" min-content / 1fr 1fr;
+    column-gap: 9px;
+    padding: 1em;
+    margin: 0 auto;
+    max-width: 550px;
+}
+.movie-cover-img {
+    grid-area:cover;
+    width: 75%;
+    max-width: 345px;
+    margin: 0 auto;
+}
+
+.movie-title {
+    grid-area: title;
+    text-align: center;
+}
+
+.info-title {
+    text-align: right;
+}
+
+.info1 {
+    grid-area: info1;
+}
+.stat1 {
+    grid-area: stat1;
+}
+.info2 {
+    grid-area: info2;
+}
+.stat2 {
+    grid-area: stat2;
+}
+.info3 {
+    grid-area: info3;
+}
+.stat3 {
+    grid-area: stat3;
+}
+.info4 {
+    grid-area: info4;
+}
+.stat4 {
+    grid-area: stat4;
+}
+.info5 {
+    grid-area: info5;
+}
+.stat5 {
+    grid-area: stat5;
+}
+.info6 {
+    grid-area: info6;
+}
+.stat6 {
+    grid-area: stat6;
+}
+.info7 {
+    grid-area: info7;
+}
+.stat7 {
+    grid-area: stat7;
+}
+.plot-container {
+    margin: auto;
+    grid-area: plot;
+}
+.plot-text {
+    margin: 1.25em;
+}
+.cast-container {
+    grid-area: cast;
+}
+.cast-card {
+    display: grid;
+    grid-template: "actor-img actor-info" 1fr / 110px 1fr;
+    padding: .75em;
+    border-bottom: .5px solid lightgray;
+}
+.actor-img {
+    grid-area: actor-img;
+    width: 100px;
+    height: 140px;
+}
+.actor-info {
+    grid-area: actor-info;
+}
+.actor-role {
+    font-size: .75rem;
+}
+.review-form-container {
+    grid-area: create-review;
+}
+.review-container {
+    grid-area: read-review;
+}
+.login-to-review-container {
+    display: flex;
+    align-items: baseline;
+}
+.login-to-review {
+    font-size: .75rem;
+    color: gray;
+}
+
+.review-form-style {
+    padding: 0;
+    margin: 1em;
+    max-width: 810px;
+}
+.viewer-review-rating{
+    margin: 0 0 0 .5em;
+}
+.viewer-review-title {
+    margin: 0;
+}
+.viewer-review-comment {
+    margin: 0;
+}
+.review-form-btn {
+    text-align: right;
+    padding: 0;
+    margin: .5em 0 0 0;
+}
+.review-post-container {
+    padding: 1em;
+    margin: 0;
+    border-bottom: 1px solid lightgray;
+}
+.review-post-title {
+    margin: 0;
+}
+.review-post-stars {
+    margin: 0 0 0 .5em;
+}
+.review-post-comment {
+    margin: 0;
+}
+.review-post-author {
+    text-align: right;
+    color: gray;
+    font-size: .9rem;
+    margin: 0;
+}
+
+.actor-name:link, .actor-name:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.show-crew-link {
+    color: gray;
+    float: right;
+    text-align: right;
+    text-decoration: none;
+    margin-right: 1em;
+    font-size: .9rem;
+}
+.delete-review-menu {
+    position: fixed;
+    padding: 1em 2em;
+    margin: 1em auto;
+    border-radius: 5px;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, 200%);
+    max-width: 400px;
+    width: 100%;
+    background: white;
+    z-index: 9;
+}
+.delete-review-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .4;
+    z-index: 2;
+}
+/*
+=========================
+Media Queries
+=========================
+*/
+
+@media screen and (min-width: 850px) {
+    .movie-detail-container {
+        max-width: 1060px;
+        min-width: 830px;
+        width: 70%;
+        grid-template: 
+            "title title" min-content
+            "cover plot" min-content 
+            "cover info" min-content
+            "cast cast" min-content
+            "create-review create-review" min-content
+            "read-review read-review" min-content / 1fr 1fr
+        ;
+        padding: 2em;
+    }
+    h4 {
+        padding-left: 0;
+    }
+    .movie-title {
+        margin: 0 auto .5em auto;
+    }
+    .movie-cover-img {
+        margin: auto;     
+    }
+    .plot-container h4 {
+        display: none;
+        margin: auto auto 0 auto;
+    }
+    .cast-container {
+        display: grid;
+        grid-template: 
+            "cast-title"
+            "cast-body";
+        margin: 0;
+    }
+
+    .cast-card {
+        grid-template: 
+            "actor-img"
+            "actor-info";
+        border: none;
+        width: 100px;
+        padding: 0;
+    }
+    .cast-card-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        margin: 1em auto 0 auto;
+        width: 100%;
+        max-width: 810px;
+    }
+    .review-form-style {
+        margin: 1.5em auto 0 auto;
+    }
+}

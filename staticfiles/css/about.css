@@ -1,0 +1,105 @@
+.amc-img-container, .awc-img-container, .apyc-img-container {
+    width: 300px;
+    height: 400px;
+    background-color: black;
+    margin: auto;
+    border-radius: 5px;
+}
+.amc-img, .awc-img, .apyc-img {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.about-page-container {
+    max-width: 1060px;
+    margin: auto;
+    padding: 1em .5em;
+}
+.about-myself-container, .about-past-year-container,
+.about-website-container, .about-outro-container {
+    grid-gap: .5em;
+    margin: 3em auto;
+    max-width: 1060px;
+}
+.about-myself-container {
+    display: grid;
+    grid-template: 
+        "amc-intro" min-content
+        "amc-img" min-content
+        "amc-paragraph" min-content
+    ;
+}
+.amc-intro {
+    grid-area: amc-intro
+}
+.amc-img-container {
+    grid-area: amc-img;
+}
+.amc-paragraph {
+    grid-area: amc-paragraph;
+}
+.about-past-year-container {
+    display: grid;
+    grid-template:
+        "apyc-img" min-content
+        "apyc-paragraph" min-content
+    ;
+}
+.apyc-paragraph {
+    grid-area: apyc-paragraph;
+}
+.apyc-img-container {
+    grid-area: apyc-img;
+}
+.about-website-container {
+    display: grid;
+    grid-template: 
+        "awc-intro" min-content
+        "awc-img" min-content
+        "awc-paragraph" min-content
+    ;
+}
+.awc-into {
+    grid-area: awc-intro;
+}
+.awc-img-container {
+    grid-area: awc-img;
+}
+.awc-paragraph {
+    grid-area: awc-paragraph;
+}
+.awc-paragraph, .apyc-paragraph, .amc-paragraph {
+    margin: auto;
+    text-align: center;
+    max-width: 400px;
+}
+.aoc-paragraph {
+    padding: .5em;
+    margin: auto;
+    text-align: center;
+}
+.film-strip-left, .film-strip-right {
+    display: none;
+}
+@media screen and (min-width: 700px) {
+    h3 {
+        margin-bottom: 2em !important; 
+    }
+    .about-myself-container {
+        grid-template: 
+            "amc-intro amc-intro" min-content
+            "amc-img amc-paragraph" min-content
+        ;
+    } 
+    .about-past-year-container {
+        grid-template:
+            "apyc-paragraph apyc-img" min-content
+        ;
+    }
+    .about-website-container {
+        grid-template: 
+            "awc-intro awc-intro" min-content
+            "awc-img awc-paragraph" min-content
+        ;
+    } 
+}

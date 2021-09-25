@@ -1,0 +1,224 @@
+.search-list-master-container {
+    max-width: 400px;
+    margin: auto;
+}
+.search-results-header {
+    border-bottom: 1px solid lightgray;
+}
+
+.filter-message {
+    display:none;
+}
+
+.search-results-filter {
+    position: sticky;
+    top: 84px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 90%;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid lightgray;
+    border-top: none;
+    background: white;
+    z-index: 9;
+    white-space: nowrap;
+}
+#show-results {
+    margin: .375em auto .5em auto;
+}
+.search-all-movies-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: .5em;
+}
+.search-movies-container {
+    display: grid;
+    grid-template: 
+        "cover title"
+        "cover rating"
+        "cover distributed"
+        "cover people"
+        "cover plot"
+    ;
+    overflow: hidden;
+    max-width: 1000px;
+    height: min-content;
+    margin-bottom: .5em;
+    border-bottom: .5px solid lightgray
+}
+.search-movie-cover {
+    grid-area: cover;
+    width: 55.7667px;
+    height: 82.3167px;
+    margin: auto .25em auto auto;
+}
+.search-movie-title a:link, 
+#show-results a:link, 
+.search-people-title a:link,
+.search-results-genre:link {
+    text-decoration: none;
+} 
+.search-movie-title {
+    grid-area: title;
+    font-size: 1em;
+    display: inline; 
+    overflow:hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    width: 100%;
+}
+.search-movie-rating {
+    grid-area: rating;
+    margin: 0;
+}
+.search-movie-distributed {
+    grid-area: distributed;
+    font-size: .9em;
+    margin: 0;
+    display: block; 
+    overflow:hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    width: 100%;
+}
+.search-movie-people {
+    grid-area: people;
+    font-size: .9em;
+    margin: 0;
+    display: block; 
+    overflow:hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    width: 100%;
+}
+
+.search-movie-plot {
+    display: none;
+    grid-area: plot;
+}
+.search-all-people-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: .5em
+}
+.search-people-container {
+    display: grid;
+    grid-template: 
+        "picture name"
+        "picture bday"
+        "picture bplace"
+        "picture bio"/ min-content 1fr
+    ;
+    height: min-content;
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: .5em;
+    border-bottom: .5px solid lightgray
+}
+.search-people-picture {
+    grid-area: picture;
+    width: 55.7667px;
+    height: 82.3167px;
+
+    margin: auto .25em .125em auto;
+}
+.search-people-title {
+    grid-area: name;
+    margin: 0;
+    font-size: 1em;
+    display: block; 
+    overflow:hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    width: 100%;
+}
+.search-people-birthdate {
+    grid-area: bday;
+    margin: 0;
+    display: block; 
+    overflow:hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    width: 100%;
+}
+.search-people-birthplace {
+    grid-area: bplace;
+    margin: 0;
+    display: block; 
+    overflow:hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    width: 100%;
+}
+.search-people-biography {
+    grid-area: bio;
+    display: none;
+}
+.search-all-genre-container {
+    margin-left: 1em;
+}
+.search-genre-container {
+    max-width: 1000px;
+}
+@media screen and (min-width: 620px) {
+    .search-movies-container, .search-people-container, .search-genre-container {
+        margin: auto auto 1em auto;
+    }
+    .search-movie-cover {
+        width: 130px;
+        height: 192px;
+    }
+    .search-list-master-container {
+        max-width: 1375px;
+        padding: auto;
+    }
+    .search-movie-title {
+        font-size: 1.5em;
+        padding-bottom: .125em;
+    }
+    .search-movie-distributed {
+        font-size: 1em;
+    }
+    .search-movie-people {
+        font-size: 1em;
+    }
+    .search-movie-plot {
+        display: inline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical;
+    }
+    .search-people-picture {
+        height: 140px;
+        width: 100px;
+    }
+    .search-people-title a {
+        font-size: 1.5em;
+    }
+    .search-people-biography {
+        display: none;
+        margin: 0;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical;
+    }
+    .filter-message {
+        display:inline;
+    }
+    .search-results-filter {
+        width: min-content;
+        padding: .25em 1em;
+        margin: auto 5% auto auto;
+    }
+}
+@media screen and (min-width: 730px) {
+    .search-results-filter {
+        top: 56px;
+    }
+
+}

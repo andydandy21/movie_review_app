@@ -1,0 +1,45 @@
+.my-form-control input{
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: .375em;
+}
+.account-form-container {
+    max-width: 810px; 
+    margin:2em auto;
+    padding: 0 1em;
+}
+
+.checkbox-container {
+    display: flex;
+    white-space: nowrap;
+    align-items: baseline;
+}
+.checkbox-container input {
+    width: min-content;
+    margin: .5ch;
+}
+.submit-group {
+    display: flex;
+}
+.confirm-container {
+    max-width: 600px;
+    margin: 1em auto;
+    padding: 1em;
+}
+.confirm-container button {
+    float: right;
+    margin-right: 2em;
+}
+.errorlist-container {
+    width: 100%;
+    padding: 0;
+}
+.errorlist {
+    white-space: nowrap;
+    list-style-type: none;
+    background: rgb(255, 213, 219);
+    width: 100%;
+    border-radius: 5px;  
+    padding: .25em 1em; 
+}

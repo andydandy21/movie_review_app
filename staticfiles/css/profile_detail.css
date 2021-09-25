@@ -1,0 +1,191 @@
+.profile-detail-container {
+    display: grid;
+    grid-template:
+        "messages" min-content
+        "profile-info" min-content
+        "user-reviews" min-content
+        "selected-review" min-content
+    ;
+    max-width: 800px;
+    margin: auto;
+}
+.messages {
+    grid-area: messages;
+    text-align: center;
+}
+.messages ul, .messages li {
+    list-style-type: none;
+    margin-left: none;
+    margin-top: none;
+} 
+.errorlist {
+    background-color: rgb(255, 213, 219);
+}
+.confirmlist {
+    background-color: rgb(213, 255, 216);
+}
+.profile-info {
+    grid-area: profile-info;
+}
+.email-change-form {
+    display: flex;
+    white-space: nowrap;
+}
+
+.delete-profile-background {
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .4;
+    z-index: 2;
+}
+.delete-profile-menu {
+    position: fixed;
+    padding: 1em 2em;
+    margin: 1em auto;
+    border-radius: 5px;
+    top: 120px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 400px;
+    width: 100%;
+    background: white;
+    z-index: 9;
+}
+.profile-all-reviews {
+    grid-area: user-reviews;
+}
+.profile-all-reviews-container {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+.profile-reviews-container {
+    display: grid;
+    grid-template: 
+        "cover-img title" min-content
+        "cover-img rating" min-content
+        "cover-img review" min-content / min-content 1fr
+    ;
+}
+.profile-reviews-container h6, .profile-reviews-container p {
+    display: block; 
+    overflow:hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    width: 95%;
+}
+.show-review-btn:link, .show-review-btn:visited {
+    text-decoration: none;
+    color: inherit;
+}
+.show-review-btn:hover {
+    color: rgb(16, 128, 233);
+}
+.profile-movie-cover {
+    grid-area: cover-img;
+    width: 55.7667px;
+    height: 82.3167px;
+}
+.profile-movie-title {
+    grid-area: title;    
+}
+.profile-review-rating {
+    grid-area: rating;
+}
+.profile-review-title{
+    grid-area: review;
+}
+.selected-review{
+    grid-area: selected-review;
+    margin: .5em;
+}
+@media screen and (min-width: 600px){
+    .profile-detail-container {
+        display: grid;
+        grid-template:
+            "messages messages" min-content
+            "user-reviews profile-info" min-content
+            "selected-review selected-review" min-content
+        ;
+        grid-gap: 1.5em;
+        max-width: 800px;
+        margin: auto;
+    }
+}
+/*
+.profile-detail-container {
+    display: grid;
+    grid-template:
+        "messages messages" min-content
+        "user-reviews profile-info" min-content
+        "selected-review selected-review" min-content
+    ;
+    max-width: 800px;
+    margin: auto;
+}
+.messages {
+    grid-area: messages;
+}
+.profile-info {
+    grid-area: profile-info;
+}
+.delete-profile-background {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .4;
+    z-index: 2;
+}
+.delete-profile-menu {
+    position: fixed;
+    padding: 1em 2em;
+    margin: 1em auto;
+    border-radius: 5px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 400px;
+    width: 100%;
+    background: white;
+    z-index: 9;
+}
+.email-change-form {
+    display: flex;
+    white-space: nowrap;
+}
+.profile-all-reviews {
+    grid-area: user-reviews;
+
+}
+.selected-review {
+    grid-area: selected-review;
+}
+
+
+.profile-reviews-container {
+    display: grid;
+    grid-template: 
+        "cover-img title" min-content
+        "cover-img rating" min-content
+        "cover-img review" min-content / min-content 1fr
+    ;
+}
+.profile-movie-cover {
+    grid-area: cover-img;
+    width: 55.7667px;
+    height: 82.3167px;
+}
+.profile-movie-title {
+    grid-area: title;    
+}
+.profile-review-rating {
+    grid-area: rating;
+}
+.profile-review-title{
+    grid-area: review;
+}
+*/
