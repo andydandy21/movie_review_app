@@ -1,9 +1,7 @@
 .amc-img-container, .awc-img-container, .apyc-img-container {
     width: 300px;
     height: 400px;
-    background-color: black;
     margin: auto;
-    border-radius: 5px;
 }
 .amc-img, .awc-img, .apyc-img {
     width: 100%;

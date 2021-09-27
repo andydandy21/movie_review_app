@@ -162,10 +162,13 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
-DEFAULT_FROM_EMAIL = 'admin@ReelReviews.com'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('TRR_EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('TRR_EMAIL_PASS')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'thereelreview.donotreply@gmail.com'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"

@@ -1,3 +1,4 @@
+import os
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http.response import HttpResponse
@@ -30,7 +31,7 @@ class ContactPageView(FormView):
                 form.cleaned_data['message'], 
 			]
             message = '\n'.join(body)
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL])
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [os.environ.get('DEFAULT_TO_EMAIL')])
             return redirect('contact')
         return HttpResponse('We encountered a problem. E-mail has not been sent <a href="/">return to site</a>')
 
