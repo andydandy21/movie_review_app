@@ -1,6 +1,6 @@
 .results-container {
     display: grid;
-    background: rgb(255, 255, 253);
+    background: white;
     grid-template:
         "picture title"
         "picture info"/ 60px 1fr
