@@ -153,6 +153,8 @@ if ENVIRONMENT == 'production':
     AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
 
     AWS_QUERYSTRING_AUTH = False
+    AWS_S3_FILE_OVERWRITTEN = False
+    AWS_DEFAULT_ACL = None
 
     AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
 
@@ -162,7 +164,7 @@ if ENVIRONMENT == 'production':
         'django.contrib.staticfiles.finders.FileSystemFinder',
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     ]
-    STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+    STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3-us-east-1.amazonaws.com/'
     MEDIA_URL = STATIC_URL + 'media/'
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
