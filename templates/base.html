@@ -20,7 +20,7 @@
 
     <nav class="custom-navbar">
         <div class="navbar-container">
-            <a class="navbar-logo navbar-link" href="{% url 'movie_list' %}"><img class="custom-logo" src="/media/site_images/Logo.png"></a>
+            <a class="navbar-logo navbar-link" href="{% url 'movie_list' %}"><img class="custom-logo" src="{% get_media_prefix %}site_images/Logo.png"></a>
             <a class="navbar-about navbar-link" href="{% url 'about' %}"><h5>About</h5></a>
             <a class="navbar-contact navbar-link" href="{% url 'contact' %}"><h5>Contact</h5></a>
             <form class="search-form" method="GET" action="{% url 'search_list' %}">
