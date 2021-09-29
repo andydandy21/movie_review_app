@@ -9,16 +9,16 @@
 
 {% block content %}
 <div class="home-img-container">
-    <img class="home-img" src="/media/site_images/Reel_Front_Shot.jpg">
+    <img class="home-img" src="{% get_media_prefix %}site_images/Reel_Front_Shot.jpg">
 </div>
 <div class="logo-container">
-    <img class="logo-txt" src="/media/site_images/Logo_Text.png">
+    <img class="logo-txt" src="{% get_media_prefix %}site_images/Logo_Text.png">
 </div>
 <div class="logo-container-reel">
-    <img class="logo-txt-reel" src="/media/site_images/Logo_Text_REEL.png">
+    <img class="logo-txt-reel" src="{% get_media_prefix %}site_images/Logo_Text_REEL.png">
 </div>
 <div class="logo-container-review">
-    <img class="logo-txt-review" src="/media/site_images/Logo_Text_REVIEW.png">
+    <img class="logo-txt-review" src="{% get_media_prefix %}site_images/Logo_Text_REVIEW.png %}">
 </div>
 <div class="home-menu">
     <a class="continue-link" href="{% url 'movie_list' %}"><h1>Continue to Site</h1></a>
